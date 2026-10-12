@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100b0f">
+<title>DROP BEAUTY</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root {
+  --bg:#100b0f; --card:#1c131a; --pink:#f18cae;
+  --gold:#d9b18a; --text:#fff3f7; --muted:#bba9b3;
+}
+* { box-sizing:border-box }
+body {
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+header { padding:25px 20px 12px; text-align:center }
+.logo { color:var(--gold); font-size:12px; letter-spacing:5px }
+h1 { margin:8px 0; font-size:30px; letter-spacing:2px }
+.sub { color:var(--muted); font-size:13px }
+main { max-width:480px; margin:auto; padding:12px 16px 35px }
+.balance {
+  background:linear-gradient(130deg,#38202e,#1c131a);
+  border:1px solid #68404f; border-radius:18px;
+  padding:18px; display:flex; justify-content:space-between;
+  align-items:center; margin-bottom:18px;
+}
+.small { font-size:12px; color:var(--muted) }
+.money { font-size:25px; font-weight:700; margin-top:5px }
+.coin { color:var(--gold) }
+.tabs { display:flex; gap:8px; margin-bottom:18px }
+button {
+  font:inherit; cursor:pointer; color:var(--text);
+  border:1px solid #63404f; border-radius:12px;
+  background:#251923; padding:12px;
+}
+.tabs button { flex:1; font-size:13px }
+button.active, .primary {
+  background:linear-gradient(100deg,#e888a8,#f4b9c7);
+  color:#24131b; border:0; font-weight:700;
+}
+.panel {
+  background:var(--card); border:1px solid #382631;
+  border-radius:20px; padding:18px; margin-bottom:15px;
+}
+h2 { font-size:17px; margin:0 0 8px }
+.muted { color:var(--muted); font-size:13px; line-height:1.5 }
+.prize {
+  text-align:center; padding:22px 8px;
+  background:radial-gradient(ellipse,#48263a,#1c131a 70%);
+  border-radius:16px; margin:15px 0;
+}
+.product-icon { font-size:76px; margin:8px }
+.rarity { color:var(--gold); font-size:13px; margin:8px }
+.product-name { font-size:21px; font-weight:700 }
+.stakes { display:flex; gap:7px; margin:14px 0 }
+.stakes button { flex:1; padding:10px 2px; font-size:12px }
+.full { width:100%; margin-top:9px }
+.secondary { background:transparent }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:10px }
+.item { background:#261b24; border-radius:14px; padding:12px; border:1px solid #44303e }
+.item .product-icon { font-size:38px; margin:4px 0 }
+.item button { width:100%; margin-top:9px; padding:9px; font-size:12px }
+.hidden { display:none }
+footer { text-align:center; color:#8f7785; font-size:11px; padding:15px }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">✦ BEAUTY COLLECTION ✦</div>
+  <h1>DROP BEAUTY</h1>
+  <div class="sub">Твоя косметическая коллекция</div>
+</header>
+
+<main>
+  <div class="balance">
+    <div>
+      <div class="small">ТВОЙ БАЛАНС</div>
+      <div class="money"><span id="balance">10 000</span>
+        <span class="coin">✦</span></div>
+      <div class="small">Косметиксы</div>
+    </div>
+    <div style="font-size:35px">🪙</div>
+  </div>
+
+  <div class="tabs">
+    <button class="active" data-tab="game">Рулетка</button>
+    <button data-tab="inventory">Инвентарь</button>
+  </div>
+
+  <section id="game">
+    <div class="panel">
+      <h2>Косметический дроп</h2>
+      <div class="muted">Попробуй найти редкий предмет для своей коллекции.</div>
+      <div class="stakes">
+        <button data-cost="500">500 ✦</button>
+        <button class="active" data-cost="1000">1 000 ✦</button>
+        <button data-cost="2000">2 000 ✦</button>
+      </div>
+      <div class="prize">
+        <div class="small">ТВОЯ НАХОДКА</div>
+        <div class="product-icon" id="icon">💄</div>
+        <div class="rarity" id="rarity">ГОТОВА К ПРОКРУТКЕ</div>
+        <div class="product-name" id="product">Что тебе выпадет?</div>
+        <div class="muted" id="value">Выбирай ставку и нажимай кнопку</div>
+      </div>
+      <button class="primary full" id="spin">✦ КРУТИТЬ</button>
+      <div id="resultActions" class="hidden">
+        <button class="primary full" id="keep">Сохранить в коллекцию</button>
+        <button class="full secondary" id="sell">Продать за 0 ✦</button>
+        <button class="full secondary" id="again">Крутить дальше</button>
+      </div>
+      <p class="muted">Вероятности: обычный 60%, необычный 25%,
+      редкий 10%, эпический 4%, легендарный 0,9%,
+      ультралегендарный 0,1%.</p>
+    </div>
+  </section>
+
+  <section id="inventory" class="hidden">
+    <div class="panel">
+      <h2>Моя коллекция</h2>
+      <div class="muted" id="count">Пока здесь пусто</div>
+      <div class="grid" id="items" style="margin-top:15px"></div>
+    </div>
+  </section>
+  <footer>DROP BEAUTY · Виртуальные предметы и монеты</footer>
+</main>
+
+<script>
+const tg = window.Telegram?.WebApp;
+tg?.ready();
+tg?.expand();
+
+const catalog = [
+ {name:"Блеск для губ",icon:"💋",r:"Обычный",p:200},
+ {name:"Тушь для ресниц",icon:"🖤",r:"Обычный",p:350},
+ {name:"Бальзам для губ",icon:"💄",r:"Обычный",p:450},
+ {name:"Румяна",icon:"🌸",r:"Необычный",p:800},
+ {name:"Палетка теней",icon:"🎨",r:"Необычный",p:1200},
+ {name:"Сыворотка",icon:"🧴",r:"Редкий",p:1800},
+ {name:"Набор косметики",icon:"🎁",r:"Эпический",p:3500},
+ {name:"Премиальный парфюм",icon:"✨",r:"Легендарный",p:7000},
+ {name:"Алмазная коллекция",icon:"💎",r:"Ультралегендарный",p:15000}
+];
+const chances = [60,25,10,4,0.9,0.1];
+const tiers = ["Обычный","Необычный","Редкий",
+               "Эпический","Легендарный","Ультралегендарный"];
+
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem("dropBeauty")||"{}"); }
+catch(e) { saved = {}; }
+
+let balance = Number.isFinite(saved.balance) ? saved.balance : 10000;
+let inventory = Array.isArray(saved.inventory) ? saved.inventory : [];
+let cost = 1000;
+let current = null;
+let busy = false;
+
+const $ = id => document.getElementById(id);
+const fmt = n => Math.floor(n).toLocaleString("ru-RU");
+
+function persist() {
+  localStorage.setItem("dropBeauty",JSON.stringify({balance,inventory}));
+}
+function render() {
+  $("balance").textContent = fmt(balance);
+  $("count").textContent = "Предметов в коллекции: "+inventory.length;
+  $("items").innerHTML = "";
+  inventory.forEach((item,i) => {
+    const el = document.createElement("div");
+    el.className = "item";
+    const icon = document.createElement("div");
+    icon.className = "product-icon";
+    icon.textContent = item.icon;
+    const name = document.createElement("div");
+    name.textContent = item.name;
+    const rarity = document.createElement("div");
+    rarity.className = "rarity";
+    rarity.textContent = item.r;
+    const price = document.createElement("div");
+    price.className = "small";
+    price.textContent = "Цена: "+fmt(item.p)+" ✦";
+    const btn = document.createElement("button");
+    btn.textContent = "Продать";
+    btn.onclick = () => {
+      balance += Math.floor(item.p*0.8);
+      inventory.splice(i,1);
+      persist(); render();
+    };
+    el.append(icon,name,rarity,price,btn);
+    $("items").appendChild(el);
+  });
+}
+function pick() {
+  let x = Math.random()*100, tier = tiers[0];
+  for(let i=0;i<chances.length;i++) {
+    x -= chances[i];
+    if(x < 0) { tier=tiers[i]; break; }
+  }
+  const pool = catalog.filter(item=>item.r===tier);
+  return {...pool[Math.floor(Math.random()*pool.length)]};
+}
+function resetPrize() {
+  current = null;
+  $("icon").textContent = "💄";
+  $("rarity").textContent = "ГОТОВА К ПРОКРУТКЕ";
+  $("product").textContent = "Что тебе выпадет?";
+  $("value").textContent = "Выбирай ставку и нажимай кнопку";
+  $("spin").classList.remove("hidden");
+  $("resultActions").classList.add("hidden");
+}
+function spin() {
+  if(busy || current) return;
+  if(balance < cost) {
+    alert("Не хватает косметиксов! Продай предметы из коллекции.");
+    return;
+  }
+  balance -= cost;
+  current = null;
+  busy = true;
+  $("spin").disabled = true;
+  $("spin").textContent = "КРУТИМ...";
+  render();
+  let ticks = 0;
+  const timer = setInterval(()=>{
+    const item = pick();
+    $("icon").textContent = item.icon;
+    $("product").textContent = item.name;
+    ticks++;
+    if(ticks >= 12) {
+      clearInterval(timer);
+      current = item;
+      busy = false;
+      $("spin").disabled = false;
+      $("spin").textContent = "✦ КРУТИТЬ";
+      $("rarity").textContent = item.r.toUpperCase();
+      $("value").textContent = "Продажа игре: "+fmt(item.p)+" косметиксов";
+      $("spin").classList.add("hidden");
+      $("resultActions").classList.remove("hidden");
+      $("sell").textContent = "Продать за "+fmt(item.p)+" ✦";
+      persist();
+    }
+  },100);
+}
+function sellCurrent() {
+  if(!current) return;
+  balance += current.p;
+  current = null;
+  persist(); render(); resetPrize();
+}
+function keepCurrent() {
+  if(!current) return;
+  inventory.push(current);
+  current = null;
+  persist(); render(); resetPrize();
+}
+document.querySelectorAll("[data-cost]").forEach(btn=>{
+  btn.onclick = ()=>{
+    if(current || busy) return;
+    cost = Number(btn.dataset.cost);
+    document.querySelectorAll("[data-cost]").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+  };
+});
+document.querySelectorAll("[data-tab]").forEach(btn=>{
+  btn.onclick = ()=>{
+    document.querySelectorAll("[data-tab]").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    $("game").classList.toggle("hidden",btn.dataset.tab!=="game");
+    $("inventory").classList.toggle("hidden",btn.dataset.tab!=="inventory");
+  };
+});
+$("spin").onclick = spin;
+$("sell").onclick = sellCurrent;
+$("keep").onclick = keepCurrent;
+$("again").onclick = resetPrize;
+render();
+</script>
+</body>
+</html>
