@@ -1,183 +1,223 @@
 
-* {
-  box-sizing: border-box;
-}
+/* DROP BEAUTY — Luxury Design */
 
 :root {
-  --bg: #0c090c;
-  --panel: #191218;
-  --pink: #e8b5c7;
-  --gold: #c9a16b;
-  --text: #fff5f8;
-  --muted: #a99aa3;
+–bg: #0b090b;
+–card: #191216;
+–pink: #f0a1bd;
+–gold: #d9b18a;
+–text: #fff4f8;
+–muted: #bba8b1;
 }
 
+* {
+    box-sizing: border-box;
+    }
+
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Arial, sans-serif;
+margin: 0;
+background:
+radial-gradient(ellipse at top, #38202d 0%, #0b090b 55%);
+color: var(–text);
+font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+header {
+padding: 30px 20px 18px;
+text-align: center;
+}
+
+.logo {
+color: var(–gold);
+font-size: 11px;
+letter-spacing: 5px;
+}
+
+h1 {
+margin: 12px 0;
+font-size: 32px;
+letter-spacing: 3px;
+background: linear-gradient(90deg, #d9b18a, #fff0f5, #e99ab8);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+
+.sub {
+color: var(–muted);
+font-size: 13px;
+}
+
+main {
+max-width: 480px;
+margin: auto;
+padding: 12px 16px 35px;
+}
+
+.balance {
+background: linear-gradient(135deg, #39202e, #191216);
+border: 1px solid #8b596d;
+border-radius: 22px;
+padding: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+box-shadow: 0 8px 30px #0005;
+}
+
+.small {
+font-size: 12px;
+color: var(–muted);
+}
+
+.money {
+font-size: 27px;
+font-weight: 800;
+margin-top: 6px;
+}
+
+.coin {
+color: var(–gold);
+}
+
+.tabs {
+display: flex;
+gap: 9px;
+margin-bottom: 18px;
 }
 
 button {
-  cursor: pointer;
-  font: inherit;
+font: inherit;
+cursor: pointer;
+color: var(–text);
+border: 1px solid #63404f;
+border-radius: 13px;
+background: #251923;
+padding: 12px;
+transition: 0.2s ease;
 }
 
-.beauty-app {
-  width: 100%;
-  max-width: 480px;
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 24px 18px 100px;
-  background:
-    radial-gradient(ellipse at top, #38202f 0%, transparent 48%),
-    var(--bg);
+.tabs button {
+flex: 1;
+font-size: 13px;
 }
 
-.beauty-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 30px;
+button.active,
+.primary {
+background: linear-gradient(110deg, #d98ba8, #f5c4d3);
+color: #24131b;
+border: 0;
+font-weight: 750;
 }
 
-.beauty-logo {
-  color: var(--pink);
-  font-size: 25px;
-  font-weight: 800;
-  letter-spacing: 3px;
+button:active {
+transform: scale(0.98);
 }
 
-.beauty-subtitle {
-  margin-top: 5px;
-  color: var(--muted);
-  font-size: 10px;
-  letter-spacing: 2px;
+.panel {
+background: linear-gradient(145deg, #20161d, #130f12);
+border: 1px solid #513342;
+border-radius: 22px;
+padding: 19px;
+margin-bottom: 16px;
+box-shadow: 0 10px 28px #0004;
 }
 
-.beauty-balance {
-  padding: 10px 12px;
-  border: 1px solid #745060;
-  border-radius: 12px;
-  color: var(--gold);
-  background: #21161f;
-  font-size: 13px;
-  white-space: nowrap;
+h2 {
+font-size: 18px;
+margin: 0 0 9px;
 }
 
-.beauty-heading {
-  margin: 0 0 8px;
-  font-size: 26px;
+.muted {
+color: var(–muted);
+font-size: 13px;
+line-height: 1.6;
 }
 
-.beauty-description {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.6;
+.prize {
+text-align: center;
+padding: 25px 10px;
+background: radial-gradient(ellipse, #633449, #271720 58%, #191216);
+border: 1px solid #694052;
+border-radius: 19px;
+margin: 17px 0;
 }
 
-.beauty-boxes {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 9px;
-  margin: 24px 0;
+.product-icon {
+font-size: 76px;
+margin: 12px;
+filter: drop-shadow(0 5px 12px #f18cae33);
 }
 
-.beauty-box {
-  min-width: 0;
-  padding: 15px 5px;
-  border: 1px solid #49303e;
-  border-radius: 14px;
-  background: linear-gradient(145deg, #2b1926, #120e12);
-  color: var(--text);
-  text-align: center;
+.rarity {
+color: var(–gold);
+font-size: 12px;
+letter-spacing: 2px;
+margin: 10px;
+font-weight: 700;
 }
 
-.beauty-box.active {
-  border-color: var(--pink);
-  box-shadow: 0 0 18px #d58ba522;
+.product-name {
+font-size: 21px;
+font-weight: 750;
 }
 
-.beauty-box strong {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 13px;
+.stakes {
+display: flex;
+gap: 7px;
+margin: 15px 0;
 }
 
-.beauty-box span {
-  color: var(--gold);
-  font-size: 12px;
+.stakes button {
+flex: 1;
+padding: 11px 2px;
+font-size: 12px;
 }
 
-.beauty-open {
-  width: 100%;
-  padding: 17px;
-  border: 0;
-  border-radius: 13px;
-  background: linear-gradient(100deg, #b87d98, #edc8d4, #c49b68);
-  color: #1b1017;
-  font-weight: 800;
-  letter-spacing: 2px;
+.full {
+width: 100%;
+margin-top: 9px;
 }
 
-.beauty-open:active {
-  transform: scale(.98);
+.secondary {
+background: transparent;
 }
 
-.beauty-section {
-  margin-top: 32px;
+.grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
 }
 
-.beauty-section h2 {
-  font-size: 19px;
+.item {
+background: linear-gradient(145deg, #30202a, #1b1419);
+border-radius: 16px;
+padding: 12px;
+border: 1px solid #513342;
+text-align: center;
+overflow-wrap: anywhere;
 }
 
-.beauty-card {
-  padding: 16px;
-  border: 1px solid #382532;
-  border-radius: 16px;
-  background: var(--panel);
+.item .product-icon {
+font-size: 40px;
+margin: 5px 0 10px;
 }
 
-.beauty-product-name {
-  margin: 8px 0;
-  font-weight: 700;
+.item button {
+width: 100%;
+margin-top: 10px;
+padding: 10px 4px;
+font-size: 12px;
 }
 
-.beauty-muted {
-  color: var(--muted);
-  font-size: 13px;
+.hidden {
+display: none !important;
 }
 
-.beauty-nav {
-  position: fixed;
-  z-index: 5;
-  bottom: 0;
-  left: 50%;
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  max-width: 480px;
-  padding: 15px 5px calc(15px + env(safe-area-inset-bottom));
-  border-top: 1px solid #392532;
-  background: #100c10f5;
-  transform: translateX(-50%);
-}
-
-.beauty-nav button {
-  border: 0;
-  background: transparent;
-  color: var(--pink);
-  font-size: 11px;
-}
-
-.beauty-result {
-  margin-top: 18px;
-  padding: 18px;
-  border: 1px solid var(--gold);
-  border-radius: 16px;
-  background: #211720;
-  text-align: center;
+footer {
+text-align: center;
+color: #9e8491;
+font-size: 11px;
+padding: 18px;
 }
